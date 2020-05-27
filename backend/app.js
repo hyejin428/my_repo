@@ -42,15 +42,93 @@ connection.connect(function (err) {
   } 
 });
 
-app.get('/',function(req,res){
-  connection.query('S', function(error, results){
-    if(err){
-      console.log(err);
-      throw err;
+// app.use('/', function(req,res){
+//   const sql = 'SELECT * FROM replies';
+//   connection.query(sql, (err, results, field)=>{
+//     console.log(results);
+
+//   })
+// })
+
+// app.get('/api/data', function (req,res) {
+//   const sql = "SELECT * from replies" 
+//   connection.query(sql , function (error, results, fields) {
+//       if(error) console.log(error);
+//       res.send(results);
+//       // res.json({
+//       //     success : true,
+//       //     data : results
+//       // })
+      
+//     }
+//   );
+// });
+
+app.get('/api/data/like', function (req,res) {
+  const sql = "SELECT * from replies ORDER BY like_num DESC" 
+  connection.query(sql , function (error, results, fields) {
+      if(error) console.log(error);
+      res.send(results);
+      // res.json({
+      //     success : true,
+      //     data : results
+      // })
+      
     }
-    res.status(200).send(results);
-  })
-})
+  );
+});
+
+app.get('/api/data/reply', function (req,res) {
+  const sql = "SELECT * from replies ORDER BY re_reply_num DESC" 
+  connection.query(sql , function (error, results, fields) {
+      if(error) console.log(error);
+      res.send(results);
+      // res.json({
+      //     success : true,
+      //     data : results
+      // })
+      
+    }
+  );
+});
+
+app.get('/api/data/like_rate', function (req,res) {
+  const sql = "SELECT * from replies ORDER BY (like_num/like_num+hate_num) DESC" 
+  connection.query(sql , function (error, results, fields) {
+      if(error) console.log(error);
+      res.send(results);
+      // res.json({
+      //     success : true,
+      //     data : results
+      // })
+      
+    }
+  );
+});
+
+app.get('/api/data/sent', function (req,res) {
+  const sql = "SELECT * from replies ORDER BY sentiment DESC" 
+  connection.query(sql , function (error, results, fields) {
+      if(error) console.log(error);
+      res.send(results);
+      // res.json({
+      //     success : true,
+      //     data : results
+      // })
+      
+    }
+  );
+});
+
+// app.get('/',function(req,res){
+//   connection.query('S', function(error, results){
+//     if(err){
+//       console.log(err);
+//       throw err;
+//     }
+//     res.status(200).send(results);
+//   })
+// })
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

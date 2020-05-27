@@ -69,12 +69,11 @@
 				background-color="primary"
 				dark
 				>
-				<v-tab
-					v-for="item2 in items2"
-					:key="item2.tab2"
-				>
-					{{ item2.tab2 }}
-				</v-tab>
+          <v-tab>좋아요 순</v-tab>
+          <v-tab>댓글 순</v-tab>
+          <v-tab>공감비율 순</v-tab>
+          <v-tab>감정 순</v-tab>
+
 				</v-tabs>
 
 				<v-container
@@ -85,31 +84,132 @@
 				<v-tabs-items v-model="tab2"
 					v-scroll:#scroll-target="onScroll"
 					style="height: 1000px">
-					<v-tab-item
-						v-for="(item1, i) in naverReply"
-						:key="i"
-					>
+          <!-- 좋아요순 -->
+					<v-tab-item>
 						<v-card flat>
 						<v-list dense shaped>
-							<template v-for="(item,idx) in item1.reply">
+							<!-- <template v-for="(item,idx) in item1.reply"> -->
+              <template v-for="(item) in like_order_list">
 								<v-list-item
-								:key="item.naver_news_id"
-								v-on:click="counter += 1"
+								:key="item['naver_news_id']"
+								v-on:click="greet"
 								>
+                 <v-list-item-avatar>
+                  <v-icon>mdi-emoticon</v-icon>
+                </v-list-item-avatar>
 								<v-list-item-content>
-									<v-list-item-title v-text="item"></v-list-item-title>
-									<v-list-item-subtitle v-text="item1.date[idx]"></v-list-item-subtitle>
+									<v-list-item-title v-text="item['reply']"></v-list-item-title>
+									<v-list-item-subtitle v-text="item['date_time']"></v-list-item-subtitle>
 								</v-list-item-content>
 
 								<div>
 									<v-btn class="ma-2" text icon color="blue lighten-2">
 										<v-icon>mdi-thumb-up</v-icon>
 									</v-btn>
-									{{item1.like[idx]}}
+									{{item['like_num']}}
 									<v-btn class="ma-2" text icon color="red lighten-2">
 										<v-icon>mdi-thumb-down</v-icon>
 									</v-btn>
-									{{item1.hate[idx]}}
+									{{item['hate_num']}}
+								</div>
+								</v-list-item>
+							</template>
+						</v-list>
+						</v-card>
+					</v-tab-item>
+          <!-- 댓글순 -->
+          <v-tab-item>
+						<v-card flat>
+						<v-list dense shaped>
+							<!-- <template v-for="(item,idx) in item1.reply"> -->
+              <template v-for="(item) in reply_order_list">
+								<v-list-item
+								:key="item['naver_news_id']"
+								v-on:click="greet"
+								>
+                 <v-list-item-avatar>
+                  <v-icon>mdi-emoticon</v-icon>
+                </v-list-item-avatar>
+								<v-list-item-content>
+									<v-list-item-title v-text="item['reply']"></v-list-item-title>
+									<v-list-item-subtitle v-text="item['date_time']"></v-list-item-subtitle>
+								</v-list-item-content>
+
+								<div>
+									<v-btn class="ma-2" text icon color="blue lighten-2">
+										<v-icon>mdi-thumb-up</v-icon>
+									</v-btn>
+									{{item['like_num']}}
+									<v-btn class="ma-2" text icon color="red lighten-2">
+										<v-icon>mdi-thumb-down</v-icon>
+									</v-btn>
+									{{item['hate_num']}}
+								</div>
+								</v-list-item>
+							</template>
+						</v-list>
+						</v-card>
+					</v-tab-item>
+          <!-- 공감비율순 -->
+          <v-tab-item>
+						<v-card flat>
+						<v-list dense shaped>
+							<!-- <template v-for="(item,idx) in item1.reply"> -->
+              <template v-for="(item) in like_rate_order_list">
+								<v-list-item
+								:key="item['naver_news_id']"
+								v-on:click="greet"
+								>
+                 <v-list-item-avatar>
+                  <v-icon>mdi-emoticon</v-icon>
+                </v-list-item-avatar>
+								<v-list-item-content>
+									<v-list-item-title v-text="item['reply']"></v-list-item-title>
+									<v-list-item-subtitle v-text="item['date_time']"></v-list-item-subtitle>
+								</v-list-item-content>
+
+								<div>
+									<v-btn class="ma-2" text icon color="blue lighten-2">
+										<v-icon>mdi-thumb-up</v-icon>
+									</v-btn>
+									{{item['like_num']}}
+									<v-btn class="ma-2" text icon color="red lighten-2">
+										<v-icon>mdi-thumb-down</v-icon>
+									</v-btn>
+									{{item['hate_num']}}
+								</div>
+								</v-list-item>
+							</template>
+						</v-list>
+						</v-card>
+					</v-tab-item>
+          <!-- 감정순 -->
+          <v-tab-item>
+						<v-card flat>
+						<v-list dense shaped>
+							<!-- <template v-for="(item,idx) in item1.reply"> -->
+              <template v-for="(item) in sent_order_list">
+								<v-list-item
+								:key="item['naver_news_id']"
+								v-on:click="greet"
+								>
+                 <v-list-item-avatar>
+                  <v-icon>mdi-emoticon</v-icon>
+                </v-list-item-avatar>
+								<v-list-item-content>
+									<v-list-item-title v-text="item['reply']"></v-list-item-title>
+									<v-list-item-subtitle v-text="item['date_time']"></v-list-item-subtitle>
+								</v-list-item-content>
+
+								<div>
+									<v-btn class="ma-2" text icon color="blue lighten-2">
+										<v-icon>mdi-thumb-up</v-icon>
+									</v-btn>
+									{{item['like_num']}}
+									<v-btn class="ma-2" text icon color="red lighten-2">
+										<v-icon>mdi-thumb-down</v-icon>
+									</v-btn>
+									{{item['hate_num']}}
 								</div>
 								</v-list-item>
 							</template>
@@ -120,11 +220,34 @@
 				</v-container>
 			</v-card>
 
-			<GChart
+			<GChart id="gg"
 				type="ScatterChart"
 				:data="chartData"
 				:options="chartOptions"
+				:events="chartEvents"
+				ref="gChart"
 			/>
+
+      <!-- <v-card
+        class="mx-auto"
+        max-width="300"
+        tile
+      >
+        <v-list disabled>
+          <v-list-item-group v-model="test_item" color="primary">
+            <v-list-item
+              v-for="(item, i) in db_replies"
+              :key="i"
+            >
+              <v-list-item-content>
+                <v-list-item-title v-text="item.nickname"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-card> -->
+      <!-- <p>{{ like_order_list }}</p> -->
+
         </v-layout>
       </v-flex>
 
@@ -171,39 +294,22 @@
           <input type="range" min="100" max="3000" v-model='force' /> {{ options.force }}
 
 					<!-- KNOWLEDGE GRAPH -->
-          <!-- <div id="app">
-            <d3-network ref='net' :net-nodes="nodes" :net-links="links" :options="options"  :link-cb="lcb"/>
-          </div> -->
+          <div id="app">
+            <!-- <svg @click="setZoom" class="container" :width="viewer.w" :height="viewer.h" ref="svg">
+              <g :transform="`translate(${zoom.x},${zoom.y})scale(${zoom.k})`">
+                <d3-network ref='net' :net-nodes="nodes" :net-links="links" :options="options"  :link-cb="lcb"/>
+              </g>
+               <d3-network ref='net' :net-nodes="nodes" :net-links="links" :options="options"  :link-cb="lcb"/>
+            </svg> -->
+            <!-- <d3-network ref='net' :net-nodes="nodes" :net-links="links" :options="options"  :link-cb="lcb"/> -->
+            <d3-network ref='net' :net-nodes="kgNode" :net-links="links" :options="options"  :link-cb="lcb"/>
+          </div>
 
             
           <h3 class="display-1 pa-3">
               댓글 분석 결과 보기
           </h3>
-          <!-- <v-card>
-            <v-tabs
-              v-model="tab3"
-              background-color="primary"
-              dark
-            >
-              <v-tab
-                v-for="item in items3"
-                :key="item.tab"
-              >
-                {{ item.tab }}
-              </v-tab>
-            </v-tabs>
 
-            <v-tabs-items v-model="tab3">
-              <v-tab-item
-                v-for="item in items3"
-                :key="item.tab"
-              >
-                <v-card flat>
-                  <v-card-text>{{ item.content }}</v-card-text>
-                </v-card>
-              </v-tab-item>
-            </v-tabs-items>
-          </v-card> -->
           <template>
             <v-data-table dense 
             v-model="select"
@@ -211,7 +317,6 @@
             :items="data"
             :single-select="singleSelect"
             item-key="nickname"
-            show-select
             class="elevation-1"
           >
             </v-data-table>
@@ -224,8 +329,8 @@
             :items="data2"
             :single-select="singleSelect"
             item-key="nickname"
-            show-select
             class="elevation-1"
+            light
           >
             </v-data-table>
           </template>
@@ -271,13 +376,15 @@
 import newsjj from '../assets/jj.json'
 import lineTest from '../assets/line_test.json'
 import naverReply from '../assets/corona_naver_news_reply.json'
-// import D3Network from 'vue-d3-network'
+import D3Network from 'vue-d3-network'
+import * as d3 from 'd3'
+import axios from 'axios';
 // import curComment from '../assets/cur_comments_info_df.json'
 // import userInfo from '../assets/user_info_df.json'
-import kgLink from '../assets/kg_link.json'
-import kgNode from '../assets/kg_node.json'
-import kgList from '../assets/kg_list.json'
-import nodeNameList from '../assets/node_name_list.json'
+import kgLink from '../assets/kg_link2.json'
+import kgNode from '../assets/kg_node2.json'
+import kgList from '../assets/kg_list2.json'
+import nodeNameList from '../assets/node_name_list2.json'
 import cur_comments_info_df from '../assets/cur_comments_info_df.json'
 import { GChart } from 'vue-google-charts'
 // import VueGoogleCharts from 'vue-google-charts'
@@ -285,42 +392,91 @@ import { GChart } from 'vue-google-charts'
 export default {
   el: '#app',
   components: {
-	// D3Network,
+	D3Network,
 	GChart
   },
   name: 'UserList',
   data () {
-		// var time_senti = new Array();
-		let json = require('../assets/cur_comments_info_df.json');
-    // var full_arr = new Array();
+    // var time_senti = new Array();
+    let json = require('../assets/cur_comments_info_df.json');
     var data_table = new Array();
+    var date_sent = new Array();
     var col = new Array();
+    var col2 = new Array();
     col.push({type:"date",label:"Date",id:"date"})
     col.push({type:"number",label:"sentiment",id:"sentiment"})
+    col.push({type:"number",label:"id",id:"id"})
+    col2.push({type:"date",label:"Date",id:"date"})
+    col2.push({type:"number",label:"sentiment",id:"sentiment"})
     data_table.push(col)
+    date_sent.push(col2)
 		for(let i=0; i<json.length; i++){
-			var arr = new Array();
+      var arr = new Array();
+      var arr2 = new Array();
 			var date = new Date(json[i]['date']);
-			var sentiment = json[i]['sentiment'];
+      var sentiment = json[i]['sentiment'];
+      var id = json[i]['naver_news_comments_id']
 			arr.push(date);
       arr.push(sentiment);
+      arr.push(id);
+      arr2.push(date);
+      arr2.push(sentiment);
       data_table.push(arr);
+      date_sent.push(arr2);
     }
-    // var data_table = new VueGoogleCharts.visualization.DataTable();
+    
+    // <date_sent>
+    // date |  sentiment
+    // 2019 |  0.3
 
-    // data_table[{type:"date",label:"Date",id:"date"}]
-    // data_table.addColumn('number', 'sentiment');
-    // data_table.addRows(full_arr);
-
+    // <data_table>
+    // date |  sentiment |  id
+    // 2019 |  0.3       |  83
+    
     return {
-			chartData: data_table,
+      test_item: 1,
+      test_items: [
+        { text: 'Real-Time', icon: 'mdi-clock' },
+        { text: 'Audience', icon: 'mdi-account' },
+        { text: 'Conversions', icon: 'mdi-flag' },
+      ],
+      viewer: {
+          w: 600,
+          h: 600
+      },
+      zoom: {
+          x: 20,
+          y: 0,
+          k: 1
+      },
+      chartEvents: {
+        'select': () => {         
+          const table = this.$refs.gChart.chartObject;
+          const selection = table.getSelection();
+          var row = selection[0].row;
+          var reply_id = data_table[row][2]
+
+          // var idx = table.indexOf(selection)
+          // var idOfObj = data_table[idx][2]
+          var newArr = json.filter(function(item){    
+            return item.naver_news_comments_id === reply_id;
+          });
+          // selection[0].row, selection[0].column
+          // var value = table.getValue(0,0)
+          const onSelectionMeaasge = selection.length !== 0 ? JSON.stringify(newArr[0]['reply']) : 'row was diselected'
+          alert(onSelectionMeaasge);
+        }
+      },
+			chartData: date_sent,
       chartOptions: {
-        chart: {
+				chart: {
 					title: 'Age vs. Weight comparison',
           hAxis: {title: 'date'},
           vAxis: {title: 'sentiment'},
           legend: 'none'
-        }
+				},
+				// colors: ['red','#004411'],
+				crosshair: { trigger: 'both' }
       },
       singleSelect: false,
       select: [],
@@ -4262,8 +4418,6 @@ export default {
 			cur_comments_info_df: cur_comments_info_df,
       kgNode: kgNode,
       kgLink: kgLink,
-      kgList : kgList,
-      nodeNameList : nodeNameList,
       nodes: nodeNameList, 
       links: kgList,
       nodeSize:10,
@@ -4305,7 +4459,29 @@ export default {
         { theme: '주제1', article: '기사1' }
       ],
       selected: [2],
+      // todoItems : [],
+      // db_replies: [],
+      like_order_list: [],
+      reply_order_list: [],
+      like_rate_order_list: [],
+      sent_order_list: [],
+      order_list: ['like_order_list','reply_order_list','like_rate_order_list','sent_order_list']
+      // axios_list: [],
     }
+  },
+  created () {
+    // this.axios_test();
+    // this.setData()
+    // this.dbLoad();
+    this.like_order();
+    this.reply_order();
+    this.like_rate_order();
+    this.sent_order();
+    // this.getListAll();
+    // this.getList();
+  },
+  mounted () {
+    this.setZoom()
   },
   computed:{
     options(){
@@ -4321,13 +4497,114 @@ export default {
     }
   },
   methods:{
+    // getListAll : function () {
+    //   this.$http.get('/api/data').then((response) => {
+    //     this.todoItems = response.data.map(function (data) {
+    //       return data;
+    //     });
+    //   });
+    // },
+    // axios_test: function(){
+    //   axios.get('/')
+    //     .then((response) =>{
+    //       // this.axios_list = JSON.stringify(response.data);
+    //       this.axios_list = JSON.stringify(response.data.map(function (data) {
+    //         return data;
+    //       }));  
+    //     })
+    // },
+    // dbLoad: function() {
+    //   axios.get('/api/data')
+    //   .then((response)=>{
+    //     this.db_replies = JSON.parse(JSON.stringify(response.data))
+    //   })
+    // },
+    like_order: function() {
+      axios.get('/api/data/like')
+      .then((response)=>{
+        this.like_order_list = JSON.parse(JSON.stringify(response.data))
+      })
+    },
+    reply_order: function() {
+      axios.get('/api/data/reply')
+      .then((response)=>{
+        this.reply_order_list = JSON.parse(JSON.stringify(response.data))
+      })
+    },
+    like_rate_order: function() {
+      axios.get('/api/data/like_rate')
+      .then((response)=>{
+        this.like_rate_order_list = JSON.parse(JSON.stringify(response.data))
+      })
+    },
+    sent_order: function() {
+      axios.get('/api/data/sent')
+      .then((response)=>{
+        this.sent_order_list = JSON.parse(JSON.stringify(response.data))
+      })
+    },
+    // getList : function() {
+    //   this.$http.get('/api/data').then((response) => {
+    //     this.db_replies = response.data;
+    //   })
+    // },
     onScroll (e) {
       this.offsetTop = e.target.scrollTop
     },
     lcb (link) {
       return link
+    },
+    greet: function (event) {
+      // 메소드 안에서 사용하는 `this` 는 Vue 인스턴스를 가리킵니다
+      alert('Hello ' + this.name + '!')
+      // const chartchart = this.$refs.gChart.chartObject;
+      // this.$refs.gChart.chartObject.setSelection([{row:0,column:0}]);
+      // gChart.setSelection(5,5) 
+			// chartOptions.colors = ['red','#004411']
+      // `event` 는 네이티브 DOM 이벤트입니다
+      if (event) {
+        alert(event.target.tagName)
+      }
+    },
+    // selectHandler: function(event) {
+    //   alert('A table row was selected');
+    // },
+    // setData () {
+    //   const stratify = d3.stratify().id((d) => d.id).parentId((d) => d.parentId)
+    //   const stratified = stratify(data)
+    //   const tree = d3.tree().size([this.viewer.w, this.viewer.h])
+
+    //   tree(stratified)
+    //   this.nodes = stratified.descendants()
+    //   this.lines = stratified.descendants().slice(1)
+    // },
+    // getDiagonal (d) {
+    //   return `M${d.y},${d.x}C${d.parent.y + 100},${d.x} ${d.parent.y + 100},${d.parent.x} ${d.parent.y},${d.parent.x}`
+    // },
+    setZoom () {
+      const zoom = d3.zoom().scaleExtent([1, 10]).on('zoom', this.onZoom)
+      const selection = d3.select(this.$refs.svg)
+
+      selection
+        .call(zoom)
+        .call(zoom.transform, this.initZoom())
+    },
+    initZoom () {
+      this.zoom.x = 40
+      this.zoom.y = 0
+      this.zoom.k = 1
+
+      return d3.zoomIdentity
+        .translate(this.zoom.x, this.zoom.y)
+        .scale(this.zoom.k)
+    },
+    onZoom () {
+      this.zoom.x = d3.event.transform.x
+      this.zoom.y = d3.event.transform.y
+      this.zoom.k = d3.event.transform.k
     }
-  }
+  },
+
 }
 </script>
 

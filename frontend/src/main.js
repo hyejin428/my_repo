@@ -3,9 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
-
+import VueGoogleCharts from 'vue-google-charts'
 Vue.config.productionTip = false
-
+Vue.use(VueGoogleCharts)
 new Vue({
   router,
   store,
